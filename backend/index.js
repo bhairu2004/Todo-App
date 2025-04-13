@@ -46,10 +46,13 @@ app.put('/completed', async(req, res) => {
         });
         return;
     }
-    await todo.update({
+    const element = await todo.findOne({
+        _id:req.body.id
+    });
+    await todo.updateOne({
         _id:req.body.id
     },{
-        completed:true
+        completed:!element.completed
     });
 
     res.json({
